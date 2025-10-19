@@ -1,0 +1,94 @@
+---
+title: ChatSarvam
+---
+
+This will help you get started with Sarvam [chat models](/oss/langchain/models). For detailed documentation of all ChatSarvam features and configurations head to the [API reference](https://python.langchain.com/api_reference/sarvam/chat_models/langchain_sarvam.chat_models.ChatSarvam.html). For a list of all Sarvam models, visit this [link](https://docs.sarvam.ai/api-reference-docs/introduction).
+
+## Overview
+
+### Integration details
+
+| Class | Package | Local | Serializable | [JS support](https://js.langchain.com/docs/integrations/chat/sarvam) | Downloads | Version |
+| :--- | :--- | :---: | :---: |  :---: | :---: | :---: |
+| [ChatSarvam](https://python.langchain.com/api_reference/sarvam/chat_models/langchain_sarvam.chat_models.ChatSarvam.html) | [langchain-sarvam](https://python.langchain.com/api_reference/sarvam/index.html) | ❌ | beta | ❌ | ![PyPI - Downloads](https://img.shields.io/pypi/dm/langchain-sarvam?style=flat-square&label=%20) | ![PyPI - Version](https://img.shields.io/pypi/v/langchain-sarvam?style=flat-square&label=%20) |
+
+### Model features
+
+| [Tool calling](/oss/langchain/tools) | [Structured output](/oss/langchain/structured-output) | JSON mode | [Image input](/oss/langchain/messages#multimodal) | Audio input | Video input | [Token-level streaming](/oss/langchain/streaming#llm-tokens) | Native async | [Token usage](/oss/langchain/models#token-usage) | [Logprobs](/oss/langchain/models#log-probabilities) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ |
+
+## Setup
+
+To access Sarvam AI models you'll need to create a Sarvam AI account, get an API key, and install the `langchain-sarvam` integration package.
+
+### Credentials
+
+Head to the [Sarvam AI dashboard](https://sarvam.ai) to sign up and generate an API key. Once you've done this set the SARVAM_API_KEY environment variable:
+
+```python
+import getpass
+import os
+
+if "SARVAM_API_KEY" not in os.environ:
+    os.environ["SARVAM_API_KEY"] = getpass.getpass("Enter your Sarvam AI API key: ")
+```
+
+To enable automated tracing of your model calls, set your [LangSmith](https://docs.smith.langchain.com/) API key:
+
+```python
+os.environ["LANGSMITH_API_KEY"] = getpass.getpass("Enter your LangSmith API key: ")
+os.environ["LANGSMITH_TRACING"] = "true"
+```
+
+### Installation
+
+The LangChain Sarvam integration lives in the `langchain-sarvam` package:
+
+```python
+pip install -qU langchain-sarvam
+```
+
+## Instantiation
+
+Now we can instantiate our model object and generate chat completions.
+
+```python
+from langchain_sarvam import ChatSarvam
+
+llm = ChatSarvam(
+    model="sarvam-m",
+    temperature=0.7,
+    # other params...
+)
+```
+
+## Invocation
+
+```python
+messages = [
+    (
+        "system",
+        "You are a helpful assistant that speaks Hindi. Respond in Hindi.",
+    ),
+    ("human", "What is the color of the sky?"),
+]
+ai_msg = llm.invoke(messages)
+ai_msg
+```
+
+```output
+AIMessage(content='आसमान का रंग नीला होता है।', response_metadata={'token_usage': {'completion_tokens': 12, 'prompt_tokens': 57, 'total_tokens': 69}, 'model_name': 'sarvam-m', 'finish_reason': 'stop'}, id='run-xxxxx', usage_metadata={'input_tokens': 57, 'output_tokens': 12, 'total_tokens': 69})
+```
+
+```python
+print(ai_msg.content)
+```
+
+```output
+आसमान का रंग नीला होता है।
+```
+
+## API reference
+
+For detailed documentation of all ChatSarvam features and configurations head to the [API reference](https://python.langchain.com/api_reference/sarvam/chat_models/langchain_sarvam.chat_models.ChatSarvam.html).
