@@ -8,4 +8,3 @@ title: Sarvam AI - LangChain Integration Reference
 [![PyPI - License](https://img.shields.io/pypi/l/langchain-sarvam)](https://opensource.org/licenses/MIT)
 [![PyPI - Downloads](https://img.shields.io/pepy/dt/langchain-sarvam)](https://pypistats.org/packages/langchain-sarvam)
 
-::: langchain_sarvam
