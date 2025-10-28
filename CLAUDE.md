@@ -59,6 +59,12 @@ If any code fences like this exist on the code page, then two outputs (one for e
 
 For implementation details, see `pipeline/preprocessors/markdown_preprocessor.py`.
 
+## Snippets
+
+Snippet files in `src/snippets/` are reusable MDX content that can be imported into multiple pages. These snippets undergo special link preprocessing during the build process that converts absolute `/oss/` links to relative paths.
+
+**Important:** When writing links in snippets, be careful about path segments. Read the docstrings and comments in `pipeline/core/builder.py` method `_process_snippet_markdown_file` (lines 807-872) to understand how snippet link preprocessing works and why certain path structures are required.
+
 ## Style guide
 
 In general, follow the [Google Developer Documentation Style Guide](https://developers.google.com/style). You can also access this style guide through the [Vale-compatible implementation](https://github.com/errata-ai/Google).
@@ -83,5 +89,6 @@ In general, follow the [Google Developer Documentation Style Guide](https://deve
 - Do not review code blocks (denoted by ```), as they are often not full snippets
 - Do not include untested code examples
 - Do not make assumptions - always ask for clarification
+- Do not include localization in relative links (e.g., `/python/` or `/javascript/`) - these are resolved automatically by the build pipeline
 
 For questions, refer to the Mintlify docs (either via MCP, if available), or at the [Mintlify documentation](https://docs.mintlify.com/docs/introduction).
